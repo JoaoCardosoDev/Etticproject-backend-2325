@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "ettic"
+version = "0.1.0"
+description = "A reddit clone with a etic algarve context."
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

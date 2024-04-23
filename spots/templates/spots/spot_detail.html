@@ -1,0 +1,15 @@
+{% extends "spots/base.html" %}
+
+{% block 'content' %}
+
+<ul>
+{% for value in object %}
+    <li>{{ value.title }}</li>
+    <li>{{ value.body }}</li>
+    <hr>
+{% empty %}
+    <h2> No posts yet </h2>
+{% endfor %}
+</ul>
+<a href="{% url 'index' %}">Back</a>
+{% endblock  %}

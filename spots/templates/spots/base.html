@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ettic</title>
+</head>
+<body>
+    <h1>Ettics Spots</h1>
+    
+    {% block 'nav' %}
+    {% comment %} {% if user.is_authenticated %}
+      <form method="post" action="{% url '' %}">
+        {% csrf_token %}
+        <button type="submit">logout</button>
+      </form>
+      <br>
+      <a href="{% url '' %}">spots</a>
+    {% else %}
+      <a href="{% url '' %}">signup</a>
+      <a href="{% url '' %}">login</a>
+    {% endif %} {% endcomment %}
+    <hr/>
+  {% endblock %}
+<div class="list">
+
+  {% block 'content' %} {% endblock %}
+</div>
+</body>
+</html>
