@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from spots.models import Post, Spot
+from spots.models import Post, Spot, Comment
 from django.http import HttpResponse
 
 # Create your views here.
@@ -18,7 +18,13 @@ def showspot(request, spot_title):
     }
     return render(request, "spots/spot_detail.html", context)
 
-class showpost(DetailView):
-    model=Post
-    slug_field="parent"
-    post_id="id"
+
+def showpost(request, post_title, post_id):
+    post = Post.objects.get(id=post_id)
+    QuerySet = Comment.objects.filter(postparent=post)
+    context = {
+        'object': QuerySet,
+        'post': post
+    }
+    return render(request, "spots/comments_view.html", context)
+

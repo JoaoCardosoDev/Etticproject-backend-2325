@@ -4,7 +4,7 @@
 
 <ul>
 {% for value in object %}
-    <li>{{ value.title }}</li>
+    <li><a href={% url 'post' value.spotparent.title value.id %}>{{ value.title }}</a></li>
     <li>{{ value.body }}</li>
     <hr>
 {% empty %}

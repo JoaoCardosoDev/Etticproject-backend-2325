@@ -1,0 +1,15 @@
+{% extends "spots/base.html" %}
+
+{% block 'content' %}
+
+<ul>
+
+    {% for value in object %}
+        <li>{{ value.body }} <br> By {{ value.user }}
+        </li>
+    {% empty %}
+    <h2>No comments yet. Be the first!!</h2>
+    {% endfor %}
+</ul>
+<a href={% url 'spot' post.spotparent.title %}>Back</a>
+{% endblock %}
