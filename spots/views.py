@@ -34,6 +34,11 @@ class PostForm(forms.ModelForm):
 
 
 def showspot(request, spot_id):
+    """
+    Não consegui fazer com que o form fosse validado, a intenção era depois replicar 
+    este código depois também para os comentários. Talvez seja algo de raiz que estou
+    a fazer mal, não consegui chegar à resposta.
+    """
     try:
         spot = Spot.objects.get(id=spot_id)
         print("found the spot")

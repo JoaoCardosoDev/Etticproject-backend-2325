@@ -11,6 +11,7 @@
     {% for value in object %}
         <li>{{ value.body }} <br> By {{ value.user }}
         </li>
+        <br>
     {% empty %}
     <h2>No comments yet. Be the first!!</h2>
     {% endfor %}
