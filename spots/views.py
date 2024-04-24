@@ -1,6 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from spots.models import Post, Spot, Comment
 from django.http import HttpResponse
@@ -12,17 +13,6 @@ from django.http import HttpResponseRedirect
 
 class listspots(ListView):
     model=Spot
-
-def showspot(request, spot_title):
-    spot= Spot.objects.get(title=spot_title)
-    queryset= Post.objects.filter(spotparent=spot)
-    form = PostForm(spot_id=spot.id)
-    context = {
-        'object':queryset,
-        'form': form,
-        'spot_id': spot.id
-    }
-    return render(request, "spots/spot_detail.html", context)
 
 
 def showpost(request, post_title, post_id):
@@ -38,40 +28,41 @@ class PostForm(forms.ModelForm):
     def __init__(self, spot_id=None, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.spot_id = spot_id
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        if self.spot_id is not None:
-            instance.spotparent_id = self.spot_id
-        if commit:
-            instance.save()
-        return instance
-
     class Meta:
         model = Post
         fields = ["title", "body"]
 
 
-def createpost(request, spot_id):
+def showspot(request, spot_id):
     try:
         spot = Spot.objects.get(id=spot_id)
+        print("found the spot")
     except Spot.DoesNotExist:
-        return HttpResponse("Spot does not exist")
+        return HttpResponse("404: Spot does not exist")
 
+    queryset = Post.objects.filter(spotparent=spot)
     if request.method == 'POST':
         form = PostForm(request.POST)
+        
+        print(form)
         if form.is_valid():
+            print("yay")
             post = form.save(commit=False)
-            post.spotparent = spot 
+            post.spotparent = spot
             post.save()
-            previous_url = request.META.get('HTTP_REFERER')
-            return HttpResponseRedirect(previous_url)
+            return HttpResponseRedirect(reverse('spot', args=[spot_id]))
+        else:
+            print(form.errors)
+            print("nay")
     else:
-        print(form.errors)
         form = PostForm()
 
     context = {
+        'object': queryset, 
         'form': form,
-        'spot_id': spot_id
+        'spot_id': spot_id,
+        'spot_title': spot.title
     }
     return render(request, 'spots/spot_detail.html', context)
+
+

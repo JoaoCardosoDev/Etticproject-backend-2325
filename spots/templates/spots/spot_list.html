@@ -3,7 +3,7 @@
 {% block 'content' %}
 <ul>
     {% for object in object_list %}
-        <li><a href="{% url 'spot' object.title %}">{{ object.title }}</a></li>
+        <li><a href="{% url 'spot' object.id %}">{{ object.title }}</a></li>
     {% endfor %}
 </ul>
 

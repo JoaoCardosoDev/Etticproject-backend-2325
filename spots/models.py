@@ -20,8 +20,8 @@ class Post(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     user=models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     spotparent=models.ForeignKey(Spot, on_delete=models.CASCADE)
-    up=models.PositiveIntegerField
-    down=models.PositiveIntegerField
+    up=models.PositiveIntegerField(default=0)
+    down=models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.title}"
@@ -33,8 +33,8 @@ class Comment(models.Model):
     user=models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now_add=True)
     postparent=models.ForeignKey(Post, on_delete=models.CASCADE)
-    up=models.PositiveIntegerField
-    down=models.PositiveIntegerField
+    up=models.PositiveIntegerField(default=0)
+    down=models.PositiveIntegerField(default=0)
         
     def __str__(self):
         return f"{self.user}'s comment -> {self.id}"
