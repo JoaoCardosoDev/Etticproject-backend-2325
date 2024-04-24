@@ -5,11 +5,19 @@ description = "A reddit clone with a etic algarve context."
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    {include = "*.py"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.0.4"
+click = "^8.1.7"
 
+[tool.poetry.scripts]
+info = "dbinfo:list_spots_and_posts"
+createcomment = "createcomment:create_comment"
+createpost = "createpost:create_post"
 
 [build-system]
 requires = ["poetry-core"]
